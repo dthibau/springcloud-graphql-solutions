@@ -18,6 +18,10 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.formation.controller.views.MemberViews;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
 import lombok.Data;
 
 
@@ -28,23 +32,30 @@ import lombok.Data;
 public class Member {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(MemberViews.List.class)
 	private long id;
 	
 	
 	@Column(unique=true)
+	@JsonView(MemberViews.List.class)
 	private String email;
 	
 	@NotNull
+	@JsonView(MemberViews.List.class)
 	private String password;
 	
+	@JsonView(MemberViews.List.class)
 	private String nom,prenom;
 	
+	@JsonView(MemberViews.List.class)
 	private int age;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonView(MemberViews.List.class)
 	private Date registeredDate;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@JsonView(MemberViews.Detail.class)
 	private Set<Document> documents = new HashSet<Document>();
 
 	
