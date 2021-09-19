@@ -49,8 +49,8 @@ class MemberRepositoryTest {
 
 	@Test
 	void testingCascading() {
-		int initialMemberCount = memberRepository.findAll().size();
-		int initialDocumentCount = documentRepository.findAll().size();
+		long initialMemberCount = memberRepository.count();
+		long initialDocumentCount = documentRepository.count();
 
 		Member newMember = new Member();
 		newMember.setAge(18);
@@ -72,8 +72,8 @@ class MemberRepositoryTest {
 		memberRepository.save(newMember);
 
 		assertAll("Adding One Member 2 docs",
-				() -> assertEquals(initialMemberCount + 1, memberRepository.findAll().size()),
-				() -> assertEquals(initialDocumentCount + 2, documentRepository.findAll().size()));
+				() -> assertEquals(initialMemberCount + 1, memberRepository.count()),
+				() -> assertEquals(initialDocumentCount + 2, documentRepository.count()));
 
 	}
 
