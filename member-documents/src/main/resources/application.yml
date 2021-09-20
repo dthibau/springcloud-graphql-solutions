@@ -3,6 +3,14 @@ spring:
     show-sql: true
     
     open-in-view: false    
+    
+  security:
+    user:
+      password: secret
+      
+logging:
+  level:
+    '[org.springframework.security]': debug
 --- 
 spring:
   config:
