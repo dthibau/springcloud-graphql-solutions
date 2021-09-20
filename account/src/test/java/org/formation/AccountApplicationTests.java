@@ -28,19 +28,15 @@ class AccountApplicationTests {
 		accountCrudRepository.deleteAll().block();
 
 		// save a couple of customers
-		accountCrudRepository.save(new Account(null, "Bill", 12.3)).block();
-		accountCrudRepository.save(new Account(null, "Mary", 13.3)).block();
-		
-		accountCrudRepository.saveAll(Flux.just(new Account(null, "David", 13.3))).blockLast();
+		List<Account> accounts = new ArrayList<>();
+		accounts.add(new Account(null, "Bill", 12.3));
+		accounts.add(new Account(null, "Mary", 13.3));
+		accounts.add(new Account(null, "David", 13.3));
+				
 
-		System.out.println("Playng with Repository Blocking");
-		System.out.println("----------------------");
-		// fetch all accounts
-		accountCrudRepository.findAll().subscribe(a -> {
-			System.out.println("findAll():" + a);
-			}
-		);
-			
+		accountCrudRepository.saveAll(Flux.fromIterable(accounts)).
+		thenMany(accountCrudRepository.findAll()).subscribe(System.out::println);
+
 		// fetch all byValue
 		accountCrudRepository.findAllByValue(12.3).subscribe(a -> {
 			System.out.println("findByValue():" + a);
@@ -65,9 +61,6 @@ class AccountApplicationTests {
 		accounts.add(new Account(null, "David", 13.3));
 				
 
-		// save a couple of customers
-	
-		
 		accountCrudRepository.saveAll(Flux.fromIterable(accounts)).subscribe();
 
 		System.out.println("Playing with Repository Unblocking");
