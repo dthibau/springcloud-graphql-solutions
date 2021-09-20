@@ -1,0 +1,51 @@
+{
+  __schema {
+    queryType {
+      name
+    }
+  }
+}
+----
+{
+  __type(name: "Query") {
+    name
+    fields {
+      name
+      type {
+        name
+        kind 
+      }
+    }
+  }
+}
+----
+{
+  continents {
+    name
+    code
+    countries {
+      code
+      name
+    }
+  }
+}
+----
+query countriesOfOneContinnent($code : ID!) {
+  continent(code : $code) {
+    code
+    name 
+    countries {name capital currency}
+  }
+}
+---
+query {
+  country(code: "AF") {
+    name
+    native
+    code
+    languages {
+      name
+      rtl
+    }
+  }
+}
