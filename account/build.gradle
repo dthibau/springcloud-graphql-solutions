@@ -20,6 +20,7 @@ dependencies {
 	implementation 'org.springframework.experimental:graphql-spring-boot-starter:1.0.0-SNAPSHOT'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.graphql:spring-graphql-test:1.0.0-SNAPSHOT'
 	implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	testImplementation 'io.projectreactor:reactor-test'
 }

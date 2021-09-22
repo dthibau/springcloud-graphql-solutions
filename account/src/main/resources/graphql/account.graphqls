@@ -9,3 +9,7 @@ type Account {
     value: Float
 }
 
+type Subscription {
+    accountSubscription : Account!
+}
+

@@ -11,6 +11,9 @@ public class Account {
     private String owner;
     private Double value;
     
+    public Account() {
+    	super();
+    }
 	public Account(String id, String owner, Double value) {
 		super();
 		this.id = id;
