@@ -2,6 +2,10 @@ type Query {
     members: [Member!]
 }
 
+type Mutation {
+    addMember(memberInput: MemberInput): Member
+}
+
 type Member {
     id: Int!
     nom: String!
@@ -9,7 +13,7 @@ type Member {
     email: String!
     password: String!
     age: Int
-    documents: Document!
+    documents: [Document]
     registeredDate: String
 }
 
@@ -19,4 +23,12 @@ type Document {
     contentType: String
     dateCreation: String
     uploadedDate: String
+}
+
+input MemberInput {
+    nom: String!
+    prenom: String
+    email: String!
+    password: String!
+    age: Int
 }

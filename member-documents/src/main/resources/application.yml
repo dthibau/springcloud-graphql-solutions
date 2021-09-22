@@ -7,10 +7,16 @@ spring:
   security:
     user:
       password: secret
+  graphql:
+    schema:
+      printer:
+        enabled: true
       
 logging:
   level:
     '[org.springframework.security]': debug
+    
+
 --- 
 spring:
   config:

@@ -22,13 +22,19 @@ import org.formation.controller.views.MemberViews;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
