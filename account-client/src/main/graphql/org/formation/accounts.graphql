@@ -1,0 +1,9 @@
+
+
+query allAccounts {
+    accounts {
+        id
+        owner
+        value
+    }
+}

@@ -1,0 +1,18 @@
+type Account {
+  id: String!
+  owner: String!
+  value: Float
+}
+
+type Query {
+  accounts: [Account!]
+}
+
+type Subscription {
+  accountSubscription: Account!
+}
+
+schema {
+  query: Query
+  subscription: Subscription
+}

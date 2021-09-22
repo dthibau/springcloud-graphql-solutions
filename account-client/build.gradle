@@ -1,0 +1,19 @@
+plugins {
+	id 'java'
+	id("com.apollographql.apollo").version("2.5.9")
+}
+
+group = 'org.formation'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	  implementation("com.apollographql.apollo:apollo-runtime:2.5.9")
+
+}
+
+
