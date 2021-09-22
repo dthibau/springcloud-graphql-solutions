@@ -1,0 +1,22 @@
+type Query {
+    members: [Member!]
+}
+
+type Member {
+    id: Int!
+    nom: String!
+    prenom: String
+    email: String!
+    password: String!
+    age: Int
+    documents: Document!
+    registeredDate: String
+}
+
+type Document {
+    id: Int!
+    name: String!
+    contentType: String
+    dateCreation: String
+    uploadedDate: String
+}
