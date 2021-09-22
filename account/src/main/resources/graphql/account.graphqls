@@ -1,0 +1,11 @@
+type Query {
+    accounts: [Account!]
+}
+
+
+type Account {
+    id: String!
+    owner: String!
+    value: Float
+}
+
