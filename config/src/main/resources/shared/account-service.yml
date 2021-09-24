@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    graphql: debug
+    org:
+      springframework:
+        graphql: debug
+spring:
+  data:
+    mongodb:
+      database: db
+      host: localhost
+      port: 11111
+  graphql:
+    schema:
+      printer:
+        enabled: true
+    websocket:
+      path: /graphql
