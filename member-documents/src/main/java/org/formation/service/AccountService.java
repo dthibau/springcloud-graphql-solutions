@@ -8,6 +8,7 @@ import org.formation.model.AccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,9 @@ public class AccountService {
 	
 	@Autowired
 	DiscoveryClient discoveryClient;
+	
+    @Autowired
+    private CircuitBreakerFactory cbFactory;
 	
 	Random r = new Random();
 	
@@ -49,19 +53,31 @@ public class AccountService {
 		    String url = si.getUri() + "/graphql";
 		    System.out.println(url);
 		    
-		    ResponseEntity<String> response = restTemplate.postForEntity(url, new HttpEntity<>(q, headers), String.class);
-		    System.out.println("The response================="+response.getBody());
-		    
-		    // Decode response
-		    Map<String, Object> map = mapper.readValue(response.getBody(), Map.class);
-		    
-		    AccountDto dto = new AccountDto();
-		    Map<String,Object> dataMap = (Map)map.get("data");
-		    Map<String,Object> accountByOwnerMap = (Map)dataMap.get("accountByOwner");
-		    dto.setId(accountByOwnerMap.get("id").toString());
-		    dto.setValue((Double)accountByOwnerMap.get("value"));
-		    
-		    return dto;
 
+		    
+		    return cbFactory.create("getAccountByOwner").run(() -> {
+		    	  ResponseEntity<String> response = restTemplate.postForEntity(url, new HttpEntity<>(q, headers), String.class);
+				    System.out.println("The response================="+response.getBody());
+				    AccountDto dto = new AccountDto();
+				    // Decode response
+				    Map<String, Object> map;
+					try {
+						map = mapper.readValue(response.getBody(), Map.class);
+					    Map<String,Object> dataMap = (Map)map.get("data");
+					    Map<String,Object> accountByOwnerMap = (Map)dataMap.get("accountByOwner");
+					    dto.setId(accountByOwnerMap.get("id").toString());
+					    dto.setValue((Double)accountByOwnerMap.get("value"));
+					} catch (JsonMappingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JsonProcessingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
+				    return dto;
+		    }, throwable -> { System.out.println("FALLBACK"); return null; });
+		  
+		    
 	}
 }
