@@ -1,5 +1,6 @@
 type Query {
     members: [Member!]
+    memberWithAccount(id :Int): MemberAccount
 }
 
 type Mutation {
@@ -15,6 +16,14 @@ type Member {
     age: Int
     documents: [Document]
     registeredDate: String
+}
+
+type MemberAccount {
+    id: Int!
+    nom: String!
+    prenom: String
+    email: String!
+    value: Float
 }
 
 type Document {

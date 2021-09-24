@@ -19,3 +19,27 @@ spring:
         enabled: true
     websocket:
       path: /graphql
+
+      
+--- 
+spring:
+  config:
+    activate:
+      on-profile:
+      - replica
+
+  data:
+    mongodb:
+      database: db
+      host: localhost
+      port: 11112      
+      
+server:
+  port: 9081
+  
+
+  data:
+    mongodb:
+      database: db
+      host: localhost
+      port: 11112
